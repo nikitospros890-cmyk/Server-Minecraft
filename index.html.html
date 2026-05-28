@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ванильный Minecraft Сервер</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Minecraft', 'Segoe UI', 'Press Start 2P', 'Courier New', monospace;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+                        url('https://static.vecteezy.com/system/resources/previews/024/252/172/non_2x/minecraft-background-with-nature-scene-ai-generated-free-photo.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #55ff55;
+            box-shadow: 0 0 20px rgba(85,255,85,0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 4px 4px 0 #2c2c2c;
+            color: #88ff88;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #ddd;
+        }
+
+        .ip-card {
+            background: #1e1e1ecc;
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid #55ff55;
+            box-shadow: 0 0 15px #55ff5533;
+        }
+
+        .ip-address {
+            background: #000000aa;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: #55ff55;
+            border: 1px solid #55ff55;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .ip-address:hover {
+            background: #55ff55;
+            color: black;
+            box-shadow: 0 0 20px #55ff55;
+        }
+
+        button {
+            background: #55ff55;
+            border: none;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            color: #1e1e1e;
+        }
+
+        button:hover {
+            background: #88ff88;
+            transform: scale(1.02);
+            box-shadow: 0 0 10px #88ff88;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: rgba(30,30,30,0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 25px;
+            width: 280px;
+            text-align: center;
+            border: 1px solid #88ff88;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #aaffaa;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #aaffaa;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            text-align: center;
+            background: #0a2f1faa;
+            padding: 15px;
+            border-radius: 60px;
+            margin: 30px auto;
+            max-width: 400px;
+            font-weight: bold;
+            border: 1px solid #55ff55;
+        }
+
+        .online {
+            color: #55ff55;
+            font-size: 1.4rem;
+        }
+
+        .offline {
+            color: #ff8888;
+        }
+
+        .vanilla-badge {
+            display: inline-block;
+            background: #2c5a2c;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #ccc;
+            border-top: 1px solid #555;
+        }
+
+        @media (max-width: 700px) {
+            h1 { font-size: 2rem; }
+            .ip-address { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🌿 VANILLA SERVER 🌿</h1>
+        <div class="tagline">Чистое выживание | Без приватов | Без доната | Только друзья и блоки</div>
+        <div class="vanilla-badge">📦 100% ванильный геймплей</div>
+    </header>
+
+    <div class="ip-card">
+        <h3>🎮 Как зайти:</h3>
+        <div class="ip-address" id="serverIp">play.your-vanilla.ru</div>
+        <button id="copyBtn">📋 Скопировать IP</button>
+        <div class="copy-notice">Нажми на IP или кнопку → вставляй в Minecraft</div>
+    </div>
+
+    <div class="status" id="statusBlock">
+        🔄 Проверяем онлайн...
+    </div>
+
+    <h2 style="text-align: center; margin: 20px 0;">❤️ Почему наш ванильный сервер?</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>🧱 Чистое выживание</h3>
+            <p>Никаких /home, /tpa, магазинов и приватов. Всё как в одиночной игре — но с друзьями.</p>
+        </div>
+        <div class="card">
+            <h3>🤝 Доверие и уважение</h3>
+            <p>Без гриферов — вход по вайтлисту или строгие правила. Строим сообщество, где не воруют.</p>
+        </div>
+        <div class="card">
+            <h3>🗺️ Огромный мир</h3>
+            <p>Карта не вайпится. Исследуй, строй базы, фермы — твой труд останется с тобой.</p>
+        </div>
+        <div class="card">
+            <h3>🎙️ Дискорд и события</h3>
+            <p>Голосовые чаты, совместные походы в Незер, ивенты по строительству — всё по желанию.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>📜 Версия</h3>
+            <p>Java Edition 1.20.4 — 1.21.1<br>(можно обновить позже)</p>
+        </div>
+        <div class="card">
+            <h3>⏳ Никакого доната</h3>
+            <p>Кик за донат? Нет. Сервер на чистом энтузиазме — без привилегий и ключей.</p>
+        </div>
+    </div>
+
+    <div class="ip-card" style="border-color: #aaa; margin-top: 20px;">
+        <h3>💬 Наш Discord</h3>
+        <p>Присоединяйся, чтобы получить вайтлист или просто пообщаться</p>
+        <button id="discordBtn" style="background:#5865F2; color:white;">🎧 https://discord.gg/fJhasRr8</button>
+    </div>
+
+    <footer>
+        <p>© 2025 Ванильный Minecraft Сервер | Никаких плагинов, только честный хардкор и творчество</p>
+        <p>✨ Создано для тех, кто скучает по старым добрым серверам ✨</p>
+    </footer>
+</div>
+
+<script>
+    // ===== НАСТРОЙКИ (ИЗМЕНИ ПОД СЕБЯ) =====
+    const SERVER_IP = "head-mice.gl.joinmc.link";   // ← сюда свой IP или домен
+    const SERVER_PORT = 25565;                  // стандартный порт
+    
+    // Если у тебя ванильный сервер без онлайн-статуса по API, можно отключить проверку.
+    // Для проверки используется бесплатный API.
+    const CHECK_STATUS = true;
+    
+    // ===== КОПИРОВАНИЕ IP =====
+    const ipElement = document.getElementById('serverIp');
+    const copyBtn = document.getElementById('copyBtn');
+    
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const original = copyBtn.innerText;
+            copyBtn.innerText = '✅ Скопировано!';
+            setTimeout(() => copyBtn.innerText = original, 2000);
+        }).catch(() => alert('Нажми Ctrl+C, IP: ' + text));
+    }
+    
+    ipElement.addEventListener('click', () => copyToClipboard(SERVER_IP));
+    copyBtn.addEventListener('click', () => copyToClipboard(SERVER_IP));
+    ipElement.innerText = SERVER_IP;
+    
+    // Кнопка Discord (просто ссылка)
+    document.getElementById('discordBtn').addEventListener('click', () => {
+        window.open('https://discord.gg/fJhasRr8');
+    });
+    
+    // ===== ПРОВЕРКА СТАТУСА (онлайн / оффлайн) =====
+    const statusBlock = document.getElementById('statusBlock');
+    
+    if (CHECK_STATUS) {
+        async function checkServer() {
+            try {
+                const response = await fetch(`https://api.mcsrvstat.us/2/${SERVER_IP}:${SERVER_PORT}`);
+                const data = await response.json();
+                
+                if (data.online) {
+                    let playersText = '';
+                    if (data.players && data.players.online !== undefined) {
+                        playersText = ` | Игроков: ${data.players.online}`;
+                    }
+                    statusBlock.innerHTML = `🟢 СЕРВЕР ОНЛАЙН 🟢<br><span class="online">${SERVER_IP}</span>${playersText}`;
+                } else {
+                    statusBlock.innerHTML = `🔴 СЕРВЕР ОФФЛАЙН 🔴<br><span class="offline">Но мы можем запустить по просьбе :)</span>`;
+                }
+            } catch (error) {
+                statusBlock.innerHTML = `⚠️ Не удалось проверить статус<br><span style="color:#ffaa55;">Попробуй зайти сам(а)!</span>`;
+            }
+        }
+        checkServer();
+        setInterval(checkServer, 60000); // раз в минуту
+    } else {
+        statusBlock.innerHTML = `💚 Сервер готов к игре! Вводи IP и заходи.`;
+    }
+</script>
+</body>
+</html>
